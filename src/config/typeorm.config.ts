@@ -6,7 +6,7 @@ export const typeOrmConfig = async (
 ): Promise<DataSourceOptions> => {
   return {
     type: 'postgres',
-    host: 'localhost',
+    host: 'postgres',
     port: 5432,
     username: configService.get<string>('DB_USER'),
     password: configService.get<string>('DB_PASSWORD'),
