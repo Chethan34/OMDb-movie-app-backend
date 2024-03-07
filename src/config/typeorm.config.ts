@@ -1,12 +1,17 @@
+import { ConfigService } from '@nestjs/config';
 import { DataSourceOptions } from 'typeorm';
 
-export const typeOrmConfig: DataSourceOptions = {
-  type: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'postgres',
-  password: 'tacocat',
-  database: 'product',
-  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-  synchronize: true,
+export const typeOrmConfig = async (
+  configService: ConfigService,
+): Promise<DataSourceOptions> => {
+  return {
+    type: 'postgres',
+    host: 'localhost',
+    port: 5432,
+    username: configService.get<string>('DB_USER'),
+    password: configService.get<string>('DB_PASSWORD'),
+    database: configService.get<string>('DB_NAME'),
+    entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+    synchronize: true,
+  };
 };
