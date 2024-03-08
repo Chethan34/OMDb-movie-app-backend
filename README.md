@@ -32,6 +32,46 @@
 $ npm install
 ```
 
+### Getting Started
+#### Setup local development environment 
+First, make sure you have docker installed.
+- Clone the repository to your local 
+- Copy the `.env.example` to `.env` and configure the environment variables
+- Run the following command from your application root directory
+
+```
+docker-compose build
+```
+```
+docker-compose up
+```
+or (run as deamon)
+```
+docker-compose up -d
+```
+
+If you need to rebuild the container:
+```
+docker-compose up --build
+```
+
+To stop all containers:
+```
+docker-compose stop
+```
+
+To stop a specific container:
+```
+docker-compose stop <container name>
+e.g. docker-compose stop app
+```
+
+To start a specific container:
+```
+docker-compose up <container name>
+e.g. docker-compose up app
+```
+
 ## Running the app
 
 ```bash
