@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Body,
   Controller,
@@ -22,6 +23,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserDto } from './dto/user.dto';
 
 @ApiTags('users')
 @Controller('users')
@@ -31,14 +33,14 @@ export class UsersController {
   @ApiOkResponse({ type: User, isArray: true })
   // @ApiQuery({ name: 'username', required: false })
   @Get()
-  getUsers(): Promise<User[]> {
+  getUsers(): Promise<UserDto[]> {
     return this.userService.getAll();
   }
 
-  @ApiOkResponse({ type: User, isArray: false, description: 'single user' })
+  @ApiOkResponse({ type: UserDto, isArray: false, description: 'single user' })
   @ApiNotFoundResponse()
   @Get(':id')
-  getUsersById(@Param('id', ParseIntPipe) id: number): Promise<User> {
+  getUsersById(@Param('id', ParseIntPipe) id: number): Promise<UserDto> {
     const user = this.userService.getById(id);
 
     if (!user) {
@@ -58,13 +60,13 @@ export class UsersController {
   @ApiCreatedResponse({ type: User })
   @ApiBadRequestResponse()
   @Patch('update')
-  updateUser(@Body() body: UpdateUserDto): Promise<User> {
+  updateUser(@Body() body: UpdateUserDto): Promise<UserDto> {
     return this.userService.updateUser(body);
   }
 
   @ApiCreatedResponse({ type: User })
   @Delete('delete')
-  deleteUser(@Body() body: { id: number }): Promise<User> {
+  deleteUser(@Body() body: { id: number }): Promise<UserDto> {
     return this.userService.deleteUser(Number(body.id));
   }
 }

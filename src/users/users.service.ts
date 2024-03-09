@@ -4,6 +4,7 @@ import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserDto } from './dto/user.dto';
 
 @Injectable()
 export class UsersService {
@@ -40,14 +41,17 @@ export class UsersService {
   //   return this.users.find((user) => user.username === username);
   // }
 
-  getAll(): Promise<User[]> {
-    return this.usersRespository.find();
+  getAll(): Promise<UserDto[]> {
+    return this.usersRespository.find({
+      select: ['id', 'username', 'email'],
+    });
   }
 
-  async getById(id: number): Promise<User> {
+  async getById(id: number): Promise<UserDto> {
     try {
       const user = await this.usersRespository.findOneOrFail({
         where: { id: id },
+        select: ['id', 'username', 'email'],
       });
       return user;
     } catch (error) {
@@ -55,10 +59,11 @@ export class UsersService {
     }
   }
 
-  async getByUsernameAndPassword(username, password): Promise<User> {
+  async getByUsernameAndPassword(username, password): Promise<UserDto> {
     try {
       const user = await this.usersRespository.findOneOrFail({
         where: { username, password },
+        select: ['id', 'username', 'email'],
       });
       return user;
     } catch (error) {
@@ -72,23 +77,37 @@ export class UsersService {
     return this.usersRespository.save(newUser);
   }
 
-  async updateUser(updateUserDto: UpdateUserDto): Promise<User> {
-    const user = await this.getById(updateUserDto.id);
+  async updateUser(updateUserDto: UpdateUserDto): Promise<UserDto> {
+    const user = await this.usersRespository.findOneOrFail({
+      where: { id: updateUserDto.id },
+    });
 
     if (updateUserDto.username) {
       user.username = updateUserDto.username;
     }
 
-    if (updateUserDto.password) {
-      user.password = updateUserDto.password;
+    if (updateUserDto.new_password) {
+      user.password = updateUserDto.new_password;
     }
 
-    return this.usersRespository.save(user);
+    if (updateUserDto.email) {
+      user.email = updateUserDto.email;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...rest } = await this.usersRespository.save(user);
+
+    return rest;
   }
 
-  async deleteUser(id: number): Promise<User> {
-    const user = await this.getById(id);
+  async deleteUser(id: number): Promise<UserDto> {
+    const user = await this.usersRespository.findOneOrFail({
+      where: { id: id },
+    });
 
-    return await this.usersRespository.remove(user);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...rest } = await this.usersRespository.remove(user);
+
+    return rest;
   }
 }

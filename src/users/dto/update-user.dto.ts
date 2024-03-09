@@ -12,6 +12,10 @@ export class UpdateUserDto {
   @MinLength(8)
   password: string;
 
+  @ApiProperty({})
+  @MinLength(8)
+  new_password: string;
+
   @ApiProperty()
   @IsEmail()
   email: string;
