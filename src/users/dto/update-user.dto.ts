@@ -1,7 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsAlphanumeric, MinLength } from 'class-validator';
 
-export class CreateUserDto {
+export class UpdateUserDto {
+  @ApiProperty()
+  id: number;
+
   @ApiProperty()
   @IsAlphanumeric()
   username: string;
