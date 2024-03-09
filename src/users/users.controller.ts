@@ -50,23 +50,23 @@ export class UsersController {
     return user;
   }
 
-  @ApiCreatedResponse({ type: User })
-  @ApiBadRequestResponse()
-  @Post()
-  createUser(@Body() body: CreateUserDto): Promise<User> {
-    return this.userService.createUser(body);
-  }
+  // @ApiCreatedResponse({ type: User })
+  // @ApiBadRequestResponse()
+  // @Post()
+  // createUser(@Body() body: CreateUserDto): Promise<User> {
+  //   return this.userService.createUser(body);
+  // }
 
-  @ApiCreatedResponse({ type: User })
-  @ApiBadRequestResponse()
-  @Patch('update')
-  updateUser(@Body() body: UpdateUserDto): Promise<UserDto> {
-    return this.userService.updateUser(body);
-  }
+  // @ApiCreatedResponse({ type: User })
+  // @ApiBadRequestResponse()
+  // @Patch('update')
+  // updateUser(@Body() body: UpdateUserDto): Promise<UserDto> {
+  //   return this.userService.updateUser(body);
+  // }
 
-  @ApiCreatedResponse({ type: User })
-  @Delete('delete')
-  deleteUser(@Body() body: { id: number }): Promise<UserDto> {
-    return this.userService.deleteUser(Number(body.id));
-  }
+  // @ApiCreatedResponse({ type: User })
+  // @Delete('delete')
+  // deleteUser(@Body() body: { id: number }): Promise<UserDto> {
+  //   return this.userService.deleteUser(Number(body.id));
+  // }
 }
