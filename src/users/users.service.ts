@@ -10,33 +10,35 @@ export class UsersService {
   constructor(
     @InjectRepository(User) private usersRespository: Repository<User>,
   ) {}
-  private readonly users: User[] = [
-    {
-      id: 0,
-      username: 'marius',
-      password: 'sosecure',
-    },
-    {
-      id: 1,
-      username: 'mambo',
-      password: 'dumbo',
-    },
-  ];
+  // private readonly users: User[] = [
+  //   {
+  //     id: 0,
+  //     username: 'marius',
+  //     password: 'sosecure',
+  //     email: 'marius@test.com',
+  //   },
+  //   {
+  //     id: 1,
+  //     username: 'mambo',
+  //     password: 'dumbo',
+  //     email: 'mambo@test.com'
+  //   },
+  // ];
 
-  findAll(username?: string): User[] {
-    if (username) {
-      return this.users.filter((user) => user.username === username);
-    }
-    return this.users;
-  }
+  // findAll(username?: string): User[] {
+  //   if (username) {
+  //     return this.users.filter((user) => user.username === username);
+  //   }
+  //   return this.users;
+  // }
 
-  findById(userId: number) {
-    return this.users.find((user) => user.id === userId);
-  }
+  // findById(userId: number) {
+  //   return this.users.find((user) => user.id === userId);
+  // }
 
-  findOne(username: string): User | undefined {
-    return this.users.find((user) => user.username === username);
-  }
+  // findOne(username: string): User | undefined {
+  //   return this.users.find((user) => user.username === username);
+  // }
 
   getAll(): Promise<User[]> {
     return this.usersRespository.find();

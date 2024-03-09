@@ -1,7 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, BeforeRecover, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
-@Entity()
+@Entity('user')
 export class User {
   @ApiProperty()
   @PrimaryGeneratedColumn()
@@ -9,9 +10,24 @@ export class User {
 
   @ApiProperty()
   @Column()
+  email: string;
+
+  @ApiProperty()
+  @Column({
+    type: 'varchar',
+    nullable: false,
+    unique: true,
+  })
   username: string;
 
   @ApiProperty()
-  @Column()
+  @Column({
+    type: 'varchar',
+    nullable: false,
+  })
   password: string;
+
+  // @BeforeInsert() async hashPassword() {
+  //   this.password = await bcrypt.hash(this.password, 10);
+  // }
 }
