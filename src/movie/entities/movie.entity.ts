@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Favorite } from 'src/favorites/entities/favorite.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('movie')
 export class Movie {
@@ -12,6 +14,14 @@ export class Movie {
   title: string;
 
   @ApiProperty()
-  @Column()
+  @Column({
+    type: 'varchar',
+    nullable: false,
+    unique: true,
+  })
   imdb_id: string; // from api
+
+  @ApiProperty()
+  @OneToMany(() => Favorite, (favoriteInfo) => favoriteInfo.movie)
+  favorites: Favorite[];
 }

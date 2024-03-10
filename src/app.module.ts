@@ -13,6 +13,8 @@ import { User } from './users/entities/user.entity';
 import { MovieModule } from './movie/movie.module';
 import { Movie } from './movie/entities/movie.entity';
 import { ApiModule } from './api/api.module';
+import { FavoritesModule } from './favorites/favorites.module';
+import { Favorite } from './favorites/entities/favorite.entity';
 
 @Module({
   imports: [
@@ -21,12 +23,13 @@ import { ApiModule } from './api/api.module';
       // load: [config],
     }),
     TypeOrmModule.forRoot(sqliteConfig),
-    TypeOrmModule.forFeature([User, Movie]),
+    TypeOrmModule.forFeature([User, Movie, Favorite]),
     // DatabaseModule,
     UsersModule,
     AuthModule,
     MovieModule,
     ApiModule,
+    FavoritesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
