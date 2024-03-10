@@ -8,18 +8,23 @@ import {
   // Delete,
   UseGuards,
   ParseIntPipe,
+  Query,
+  BadRequestException,
 } from '@nestjs/common';
 import { MovieService } from './movie.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 // import { UpdateMovieDto } from './dto/update-movie.dto';
 import {
+  ApiBadRequestResponse,
   ApiBody,
   ApiCreatedResponse,
   ApiOkResponse,
+  ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jws-auth.guard';
 import { MovieDto } from './dto/movie.dto';
+import { ApiMovieDto } from 'src/api/dto/apimovie.dto';
 
 @ApiTags('movie')
 @Controller('movie')
@@ -40,10 +45,44 @@ export class MovieController {
     return this.movieService.findAll();
   }
 
-  @ApiOkResponse()
-  @Get('apitest')
+  @ApiOkResponse({ type: String })
+  @Get('api')
   getApi(): string {
     return this.movieService.apiTest();
+  }
+
+  @ApiOkResponse({ type: ApiMovieDto })
+  @ApiBadRequestResponse()
+  @ApiQuery({ name: 'title', required: false })
+  @ApiQuery({ name: 'imdb_id', required: false })
+  @Get('api/movie')
+  getMovieByTitleOrId(
+    @Query('title') title?: string,
+    @Query('imdb_id') imdb_id?: string,
+  ): Promise<ApiMovieDto> {
+    if (title) {
+      return this.movieService.getMovieByTitle(title);
+    } else if (imdb_id) {
+      return this.movieService.getMovieByImdb(imdb_id);
+    } else {
+      throw new BadRequestException('Either title or imdb_id must be provided');
+    }
+  }
+
+  @ApiOkResponse({ type: ApiMovieDto })
+  @ApiBadRequestResponse()
+  @ApiQuery({ name: 'title', required: true })
+  @ApiQuery({ name: 'page', required: true })
+  @Get('api/movies')
+  getMoviesByTitle(
+    @Query('title') title: string,
+    @Query('page', ParseIntPipe) page: number,
+  ): Promise<ApiMovieDto> {
+    if (title) {
+      return this.movieService.getMoviesByTitle(title, page);
+    } else {
+      throw new BadRequestException('Either title and page must be provided');
+    }
   }
 
   @ApiCreatedResponse({ type: MovieDto })
