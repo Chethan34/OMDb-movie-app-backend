@@ -13,5 +13,5 @@ export class UpdateMovieDto extends PartialType(CreateMovieDto) {
 
   @ApiProperty()
   @Column()
-  movie_id: number;
+  imdb_id: string;
 }

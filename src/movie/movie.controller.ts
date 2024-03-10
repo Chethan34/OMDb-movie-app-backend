@@ -3,14 +3,15 @@ import {
   Get,
   Post,
   Body,
-  Patch,
+  // Patch,
   Param,
-  Delete,
+  // Delete,
   UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { MovieService } from './movie.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
-import { UpdateMovieDto } from './dto/update-movie.dto';
+// import { UpdateMovieDto } from './dto/update-movie.dto';
 import {
   ApiBody,
   ApiCreatedResponse,
@@ -39,26 +40,32 @@ export class MovieController {
     return this.movieService.findAll();
   }
 
+  @ApiOkResponse()
+  @Get('apitest')
+  getApi(): string {
+    return this.movieService.apiTest();
+  }
+
   @ApiCreatedResponse({ type: MovieDto })
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.movieService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.movieService.findOne(id);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @ApiCreatedResponse({ type: MovieDto })
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateMovieDto: UpdateMovieDto,
-  ): Promise<MovieDto> {
-    return this.movieService.update(+id, updateMovieDto);
-  }
+  // @UseGuards(JwtAuthGuard)
+  // @ApiCreatedResponse({ type: MovieDto })
+  // @Patch(':id')
+  // update(
+  //   @Param('id') id: string,
+  //   @Body() updateMovieDto: UpdateMovieDto,
+  // ): Promise<MovieDto> {
+  //   return this.movieService.update(+id, updateMovieDto);
+  // }
 
-  @UseGuards(JwtAuthGuard)
-  @ApiCreatedResponse({ type: MovieDto })
-  @Delete(':id')
-  remove(@Param('id') id: string): Promise<MovieDto> {
-    return this.movieService.remove(+id);
-  }
+  // @UseGuards(JwtAuthGuard)
+  // @ApiCreatedResponse({ type: MovieDto })
+  // @Delete(':id')
+  // remove(@Param('id') id: string): Promise<MovieDto> {
+  //   return this.movieService.remove(+id);
+  // }
 }

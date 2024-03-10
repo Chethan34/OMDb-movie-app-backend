@@ -13,5 +13,5 @@ export class Movie {
 
   @ApiProperty()
   @Column()
-  movie_id: number; // from api
+  imdb_id: string; // from api
 }

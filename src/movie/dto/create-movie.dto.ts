@@ -5,5 +5,5 @@ export class CreateMovieDto {
   title: string;
 
   @ApiProperty()
-  movie_id: number;
+  imdb_id: string;
 }
