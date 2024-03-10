@@ -10,6 +10,8 @@ import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import sqliteConfig from './config/ormconfig';
 import { User } from './users/entities/user.entity';
+import { MovieModule } from './movie/movie.module';
+import { Movie } from './movie/entities/movie.entity';
 
 @Module({
   imports: [
@@ -18,10 +20,11 @@ import { User } from './users/entities/user.entity';
       load: [config],
     }),
     TypeOrmModule.forRoot(sqliteConfig),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Movie]),
     // DatabaseModule,
     UsersModule,
     AuthModule,
+    MovieModule,
   ],
   controllers: [AppController],
   providers: [AppService],
