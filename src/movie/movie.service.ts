@@ -7,6 +7,7 @@ import { Movie } from './entities/movie.entity';
 import { Repository } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { ApiService } from 'src/api/api.service';
+import { ApiMovieDto } from 'src/api/dto/apimovie.dto';
 
 @Injectable()
 export class MovieService {
@@ -52,7 +53,20 @@ export class MovieService {
   //   return this.movieRepository.remove(movie);
   // }
 
+  // Below is for request to apiService
   apiTest(): string {
     return this.apiService.getHello();
+  }
+
+  getMoviesByTitle(title: string, page: number = 1): Promise<ApiMovieDto> {
+    return this.apiService.getMoviesByTitle(title, page);
+  }
+
+  getMovieByTitle(title: string): Promise<ApiMovieDto> {
+    return this.apiService.getMovieByTitle(title);
+  }
+
+  getMovieByImdb(imdb_id: string): Promise<ApiMovieDto> {
+    return this.apiService.getMovieByImdb(imdb_id);
   }
 }
