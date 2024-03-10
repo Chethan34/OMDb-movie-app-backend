@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Favorite } from 'src/favorites/entities/favorite.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 // import * as bcrypt from 'bcrypt';
 
 @Entity('user')
@@ -26,6 +28,9 @@ export class User {
     nullable: false,
   })
   password: string;
+
+  @OneToMany(() => Favorite, (favorite) => favorite.user)
+  favorites: Favorite[];
 
   // @BeforeInsert() async hashPassword() {
   //   this.password = await bcrypt.hash(this.password, 10);
