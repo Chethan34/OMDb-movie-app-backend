@@ -22,6 +22,14 @@ export class Movie {
   imdb_id: string; // from api
 
   @ApiProperty()
+  @Column()
+  poster: string;
+
+  @ApiProperty()
+  @Column()
+  year: string;
+
+  @ApiProperty()
   @OneToMany(() => Favorite, (favoriteInfo) => favoriteInfo.movie)
   favorites: Favorite[];
 }

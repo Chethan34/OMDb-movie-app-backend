@@ -36,7 +36,7 @@ export class MovieController {
   @ApiBody({ type: CreateMovieDto })
   @Post()
   create(@Body() createMovieDto: CreateMovieDto) {
-    return this.movieService.create(createMovieDto);
+    return this.movieService.createOrFind(createMovieDto);
   }
 
   @ApiOkResponse({ type: MovieDto, isArray: true })

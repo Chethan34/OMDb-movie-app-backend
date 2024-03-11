@@ -14,4 +14,10 @@ export class UpdateMovieDto extends PartialType(CreateMovieDto) {
   @ApiProperty()
   @Column()
   imdb_id: string;
+
+  @ApiProperty()
+  poster: string;
+
+  @ApiProperty()
+  year: string;
 }
