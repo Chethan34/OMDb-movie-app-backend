@@ -35,6 +35,8 @@ $ npm install
 ## Getting Started
 ### Setup local development environment 
 
+Copy the `.env.example` file and name it `.env`. Next, add an missing values in `.env`. The run one of the following scripts before.
+
 ```bash
 # development
 $ npm run start
