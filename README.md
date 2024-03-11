@@ -24,7 +24,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This is a [Nest](https://github.com/nestjs/nest) backend application. You can find the frontend [here](https://github.com/TaylorC19/inbound-platform-assignment-frontend). This application handles calls to the omdb api, stores using information, and tracks movie and favorites information
 
 ## Installation
 
@@ -32,8 +32,21 @@
 $ npm install
 ```
 
-### Getting Started
-#### Setup local development environment 
+## Getting Started
+### Setup local development environment 
+
+```bash
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
+```
+
+### Docker (Currently unavailable)
 First, make sure you have docker installed.
 - Clone the repository to your local 
 - Copy the `.env.example` to `.env` and configure the environment variables
@@ -72,19 +85,6 @@ docker-compose up <container name>
 e.g. docker-compose up app
 ```
 
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
 ## Test
 
 ```bash
@@ -101,12 +101,6 @@ $ npm run test:cov
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
