@@ -17,10 +17,20 @@ export class MovieService {
     @InjectRepository(Movie) private movieRepository: Repository<Movie>,
   ) {}
 
-  create(createMovieDto: CreateMovieDto): Promise<MovieDto> {
-    const newMovie = this.movieRepository.create(createMovieDto);
+  async createOrFind(createMovieDto: CreateMovieDto): Promise<MovieDto> {
+    // Assuming `imdbID` is a unique identifier for movies
+    const existingMovie = await this.movieRepository.findOne({
+      where: { imdb_id: createMovieDto.imdb_id },
+    });
 
-    return this.movieRepository.save(newMovie);
+    if (existingMovie) {
+      // If the movie exists, return it
+      return existingMovie;
+    } else {
+      // If the movie does not exist, create and save it
+      const newMovie = this.movieRepository.create(createMovieDto);
+      return this.movieRepository.save(newMovie);
+    }
   }
 
   findAll(): Promise<MovieDto[]> {

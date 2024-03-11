@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -15,6 +16,7 @@ import { Movie } from './movie/entities/movie.entity';
 import { ApiModule } from './api/api.module';
 import { FavoritesModule } from './favorites/favorites.module';
 import { Favorite } from './favorites/entities/favorite.entity';
+// import { typeOrmConfig } from './config/typeorm.config';
 
 @Module({
   imports: [
@@ -22,6 +24,20 @@ import { Favorite } from './favorites/entities/favorite.entity';
       isGlobal: true,
       // load: [config],
     }),
+    // TypeOrmModule.forRootAsync({
+    //   imports: [ConfigModule],
+    //   inject: [ConfigService],
+    //   useFactory: async (configService: ConfigService) => ({
+    //     type: 'postgres',
+    //     host: 'postgres',
+    //     port: 5432,
+    //     username: configService.get<string>('DB_USER'),
+    //     password: configService.get<string>('DB_PASSWORD'),
+    //     database: configService.get<string>('DB_NAME'),
+    //     entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+    //     synchronize: true,
+    //   }),
+    // }),
     TypeOrmModule.forRoot(sqliteConfig),
     TypeOrmModule.forFeature([User, Movie, Favorite]),
     // DatabaseModule,

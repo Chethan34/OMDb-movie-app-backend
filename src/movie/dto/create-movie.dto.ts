@@ -6,4 +6,10 @@ export class CreateMovieDto {
 
   @ApiProperty()
   imdb_id: string;
+
+  @ApiProperty()
+  poster: string;
+
+  @ApiProperty()
+  year: string;
 }
