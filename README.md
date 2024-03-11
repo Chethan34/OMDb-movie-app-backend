@@ -86,6 +86,9 @@ To start a specific container:
 docker-compose up <container name>
 e.g. docker-compose up app
 ```
+## Swagger documentation
+
+This application uses swagger to map out the endpoints of the application. To see the documentation, run the application, and visit `localhost:4000/swagger` in your browser.
 
 ## Test
 
