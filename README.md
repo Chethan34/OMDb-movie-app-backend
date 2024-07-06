@@ -24,7 +24,7 @@
 
 ## Description
 
-This is a [Nest](https://github.com/nestjs/nest) backend application. You can find the frontend [here](https://github.com/TaylorC19/inbound-platform-assignment-frontend). This application handles calls to the omdb api, stores using information, and tracks movie and favorites information.
+This is a [Nest](https://github.com/nestjs/nest) backend application. You can find the frontend [here](https://github.com/TaylorC19/OMDb-movie-app-frontend). This application handles calls to the omdb api, stores user information, and tracks movie and favorites information.
 
 ## Installation
 
