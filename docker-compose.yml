@@ -1,4 +1,4 @@
-version: '3.5'
+version: '3.8'
 
 services:
   app:
@@ -19,13 +19,11 @@ services:
     depends_on:
       - redis
       - postgres
-
   redis:
     container_name: redis
     image: redis:5
     networks:
       - webnet
-
   postgres:
     container_name: postgres
     image: 'postgres:latest'
@@ -35,15 +33,13 @@ services:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-      PGDATA: /var/lib/postgresql/data
+      PG_DATA: /var/lib/postgresql/data
     ports:
       - 5432:5432
     volumes:
       - pgdata:/var/lib/postgresql/data
-
 networks:
   webnet:
-
 volumes:
   pgdata:
 
