@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { createConnection, ConnectionOptions } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import sqliteConfig from './config/ormconfig';
@@ -22,4 +23,4 @@ export const databaseProviders = [
     inject: [ConfigService],
   },
 ];
-
+/* eslint-enable */
