@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.5'
 
 services:
   app:
@@ -7,39 +7,41 @@ services:
       dockerfile: ./Dockerfile
     command: npm run start:dev
     env_file:
-      - .env
+      - .env.docker.example
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - ${PORT}:${PORT}
-      - 9229:9229
+      - "${PORT:-4000}:${PORT:-4000}"
+      - "9229:9229"
     networks:
       - webnet
     depends_on:
       - redis
       - postgres
+
   redis:
     container_name: redis
     image: redis:5
     networks:
       - webnet
+
   postgres:
     container_name: postgres
     image: 'postgres:latest'
     networks:
       - webnet
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      PG_DATA: /var/lib/postgresql/data
+      POSTGRES_DB: ${DB_NAME:-postgres}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+
 networks:
   webnet:
+
 volumes:
   pgdata:
-

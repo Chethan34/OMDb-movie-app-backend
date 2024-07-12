@@ -1,4 +1,4 @@
-FROM node:21-alpine
+FROM node:14
 
 WORKDIR /usr/src/app
 
@@ -9,3 +9,7 @@ RUN npm install
 COPY . .
 
 RUN npm run build
+
+EXPOSE ${PORT}
+
+CMD ["npm", "run", "start:prod"]
